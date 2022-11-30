@@ -5,4 +5,4 @@
 - 위키 사용 : [백준](https://github.com/wsw0922/TryBaekjoon)
 
 ### 깃 명령어 정리
-[깃 명렁어](https://github.com/wsw0922/OSS_assignment/blob/main/git.md)
+- [깃 명렁어](https://github.com/wsw0922/OSS_assignment/blob/main/git.md)
