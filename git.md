@@ -75,4 +75,6 @@ clone
   $ git diff     // stagingArea와 WD 비교
   $ git diff --cached    // diff -- staged과 동일. 커밋 HEAD와 stagingArea 비교
   $ git diff HEAD    // HEAD와 WD 비교
-```
+```'
+
+### 브랜치 병합, 충돌해결
