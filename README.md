@@ -6,3 +6,6 @@
 
 ### 깃 명령어 정리
 - [깃 명렁어](https://github.com/wsw0922/OSS_assignment/blob/main/git.md)
+
+### oss 교과목 수업 내용 정리
+- [수업 주차 별 정리](https://github.com/wsw0922/OSS_assignment/blob/main/OSS-Class.md)
