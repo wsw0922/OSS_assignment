@@ -91,17 +91,129 @@
   - 소스트리 사용법
 
 ## 6주차
+**1. 브랜치**
+  - 여러 개발자들이 동시에 다양한 작업을 할 수 있게 만들어주는 기능
+  - merge로 병합
+  - ~와 ^ : 특정 커밋 위치 가리킴
+
+```
+  $ git branch    // 저장소 목록 보기
+  $ git branch -a    // 저장소 목록 보기, 원격 포함 전체 목록
+  $ git branch <new-branch>   // 저장소 생성만
+  $ git checkout -b <new-branch>     // 저장소 생성하고 이동
+  $ git switch –c <new-branch>    // 저장소 생성하고 이동
+  $ git branch <new-branch>    // 저장소 생성만
+  $ git switch <new-branch>      // 저장소 이동
+  $ git branch –d branch-name   // 저장소 삭제
+  $ git branch –D branch-name   // 저장소 삭제, 강제 삭제
+  $ git checkout branch-name    // 전환, 이동
+  $ git switch branch-name    // 전환, 이동
+  $ git checkout    // 이전 브랜치로 전환, 이동
+  $ git switch    // 이전 브랜치로 전환, 이동
+  $ git branch –h   // 도움말 보기 
+```
+
+**2. 브랜치 관리**
+  - 5가지 브랜치 종류(main, develop, feature, release, hotfix)
+  - main : 제품으로 출시되는 브랜치 배포(Release) 이력을 관리하기 위해 사용
+  - develop : 다음 출시 버전을 개발하는 브랜치
+  - feature : 기능을 개발하는 브랜치
+  - release : 이번 출시 버전을 준비하는 브랜치
+  - hotfix : 출시 버전에서 발생한 버그를 수정하는 브랜치
+  - 소스트리에서 브랜치 흐름 보기
+
+<br>
 
 ## 7주차
+**1. diff**
+  - diff : 파일이나 커밋 차이
+
+```
+  $ git diff    // 스테이징 파일상태와 작업 공간에서 현재 수정중인 상태 비교
+  $ git diff --staged   // commit된 파일상태와 add된 파일 상태 비교
+  $ git diff [비교할commit해쉬1] [비교할commit해쉬2]    // commit간의 상태 비교하기 - commit hash 이용
+  $ git diff HEAD HEAD^   // commit간의 상태 비교하기 - HEAD 이용
+  $ git diff [비교할branch1] [비교할branch2]    // branch간의 상태 비교하기 - HEAD 이용
+```
+
+**2. 이전 커밋으로 이동**
+
+```
+$ git checkout HEAD^    // 바로 전 단계로 이동
+$ git checkout HEAD~    // 바로 전 단계로 이동
+$ git checkout HEAD^^   // 2딘계 이전으로 이동
+$ git checkout HEAD~~   // 2딘계 이전으로 이동
+```
+
+<br>
 
 ## 8주차
 
+중간고사
+
+<br>
+
 ## 9주차
+**1. 임시저장**
+  - git stash : 커밋할 필요 없이 파일의 변경 사항을 숨기거나 비밀리에 저장할 수 있는 강력한 도구
+
+```
+  옵션 –k | --keep-index    // SA는 저장하지 않고 그대로 놔둠 그러므로 checkout할 수 없음
+  옵션 –u | --include-untracked   // 추적되지 않는 파일도 임시저장에 보관
+  옵션 –p | --patch   // 변경된 모든 사항들을 저장하는 것이 아니며 대화형 프롬프트를 통해 자신이 stash에 저장할 것과 저장하지 않을 것을 지정 가능
+
+  $ git stash
+  $ git stash –m ‘메시지’
+  $ git stash save
+  $ git stash save ‘메시지’  // 작업 폴더와 스테이징 영역을 숨김(stash)에 저장하고 작업 폴더를 정리
+  $ git stash list    // 목록 보기
+  $ git stash show
+  $ git stash show stash@{n}
+  $ git stash show -p
+  $ git stash show stash@{n} -p   // 해당 stash 항목이 생성되었을 때의 commit 자료(WD의 내용)와 임시로 저장된 stash 내용 간의 차이로 표시
+  -p    // 내용의 차이까지 보이기
+  $ git stash pop
+  $ git stash pop stash@{n}   // 최근 또는 지정된 임시저장소 내용을 가져와 반영하고 삭제
+  $ git stash apply
+  $ git stash apply stash@{n}   // 최근 또는 지정된 임시저장소 내용을 가져와 반영, 작업 영역만 반영, stash 목록은 그대로
+  $ git stash apply --index
+  $ git stash apply --index stash@{n}   // 최근 또는 지정된 임시저장소 내용을 가져와 반영, 작업 영역과 스테이징 영역도 반영, stash 목록은 그대로
+  $ git stash drop
+  $ git stash drop stash@{n}    // 최근 또는 지정된 임시저장소 내용을 삭제
+  $ git stash clear   // stash 목록을 모두 제거
+```
+
+<br>
 
 ## 10주차
+**1. 브랜치 병합, 충돌**
+  - merge : 여러 개의 브랜치를 하나로 모음
+  - fast-forward : 병합할 브랜치의 조상이 기준 브랜치인 경우(일렬 상태)
+  - 3-way : 브랜치 분기 후 'master'에 변경 사항이 생긴 경우
+  - 충돌 발생 경우 : 파일 내용을 수정 후 저장, add한 후 커밋, 필요하면 합병된 이전 브랜치 삭제
+  - 주의점 : 작업과 Stage 영역에 작업중인 파일이 없는지 꼭 확인
+
+<br>
 
 ## 11주차
+**1. 병합 rebase**
+  - rebase 병합 : 명령 rebase로 base를 수정하고 다시 'fast-forward 병합’ 수행: 이 병합을 직접 다시 해야함
+  - 'rebase'만 하면 'master'의 위치는 그대로 유지
+  - 히스토리가 선형으로 단순해지고 좀 더 깨끗한 이력을 남김
+
+**2. 커밋이력 수정**
+
+```
+  $ git config --global core.editor ‘code --wait’   // 최근 커밋 메시지를 설정된 편집기로 수정하는 방법
+  $ git commit --amend    // 최근 커밋 메시지를 설정된 편집기로 수정하는 방법
+  $ git commit --amend -m "an updated commit message“   // 최근 커밋 메시지를 직접 입력해 수정, 새로운 커밋 ID로 수정됨 
+  $ git commit --amend --no-edit    // 메시지 수정 없이 다시 커밋 수정, 새로운 커밋 ID로 수정됨
+```
+
+<br>
 
 ## 12주차
+
+<br>
 
 ## 13주차
